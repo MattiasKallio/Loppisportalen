@@ -1,7 +1,7 @@
 var last_fetch_from = -99;
 var ad_platform_type = "";
 var maptype = "closest";
-var ajurl = "http://localhost/loppisportalen/app/";
+var ajurl = "http://loppisportalen.se/app/";
 
 var app = {
 	// Application Constructor
