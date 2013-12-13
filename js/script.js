@@ -55,13 +55,25 @@ $(function() {
 	$(document).ready(function() {
 		app.initialize();
 		
-		var suc = function(p) {
-	        alert(p.coords.latitude + " " + p.coords.longitude);
-	    };
-	    var locFail = function() {
-	    	alert("geolocation failed");
-	    };
-	    navigator.geolocation.getCurrentPosition(suc, locFail);
+		var onSuccess = function(position) {
+		    alert('Latitude: '          + position.coords.latitude          + '\n' +
+		          'Longitude: '         + position.coords.longitude         + '\n' +
+		          'Altitude: '          + position.coords.altitude          + '\n' +
+		          'Accuracy: '          + position.coords.accuracy          + '\n' +
+		          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+		          'Heading: '           + position.coords.heading           + '\n' +
+		          'Speed: '             + position.coords.speed             + '\n' +
+		          'Timestamp: '         + new Date(position.timestamp)      + '\n');
+		};
+
+		// onError Callback receives a PositionError object
+		//
+		function onError(error) {
+		    alert('code: '    + error.code    + '\n' +
+		          'message: ' + error.message + '\n');
+		}
+
+		navigator.geolocation.getCurrentPosition(onSuccess, onError);
 		
 		
 		$("#firstpanel").on("click", ".menu_button", function() {
@@ -96,7 +108,6 @@ $(function() {
 	});
 
 	if (navigator.geolocation) {
-		check_network();
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
 		$("#listbox").slideUp("slow");
