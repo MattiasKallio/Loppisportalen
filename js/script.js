@@ -54,7 +54,16 @@ var app = {
 $(function() {
 	$(document).ready(function() {
 		app.initialize();
-		getLocation();
+		
+		var suc = function(p) {
+	        alert(p.coords.latitude + " " + p.coords.longitude);
+	    };
+	    var locFail = function() {
+	    	alert("geolocation failed");
+	    };
+	    navigator.geolocation.getCurrentPosition(suc, locFail);
+		
+		
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			if(ths.length==1){
