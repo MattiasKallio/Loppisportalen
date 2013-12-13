@@ -55,9 +55,6 @@ app.initialize();
 
 $(function() {
 	$(document).ready(function() {
-		
-		
-		getLocation();
 
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
@@ -91,9 +88,6 @@ $(function() {
 	});
 
 	if (navigator.geolocation) {
-		var map;
-		var markers = [];
-		var latlngbounds = new google.maps.LatLngBounds();
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
 		$("#listbox").slideUp("slow");
@@ -123,21 +117,6 @@ $(function() {
 				}
 			}
 		});
-	}
-
-	function addMarker(latlng, id, myTitle) {
-		var image = '../images/map_pin_mobile.png';
-		var tempmarker = new google.maps.Marker({
-			position : latlng,
-			map : map,
-			title : myTitle,
-			icon : image
-		});
-		google.maps.event.addListener(tempmarker, 'click', function() {
-			window.location = "loppis.php?mid=" + id;
-		});
-
-		markers.push(tempmarker);
 	}
 
 	function getList(type, value) {
@@ -196,9 +175,6 @@ $(function() {
 			case "closest":
 				fetch = false;
 				if (navigator.geolocation) {
-					var map;
-					var markers = [];
-					var latlngbounds = new google.maps.LatLngBounds();
 					navigator.geolocation.getCurrentPosition(showPosition);
 				} else {
 					$("#listbox").slideUp("slow");
