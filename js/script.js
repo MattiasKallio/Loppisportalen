@@ -54,26 +54,7 @@ var app = {
 $(function() {
 	$(document).ready(function() {
 		app.initialize();
-		
-		var onSuccess = function(position) {
-		    alert('Latitude: '          + position.coords.latitude          + '\n' +
-		          'Longitude: '         + position.coords.longitude         + '\n' +
-		          'Altitude: '          + position.coords.altitude          + '\n' +
-		          'Accuracy: '          + position.coords.accuracy          + '\n' +
-		          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-		          'Heading: '           + position.coords.heading           + '\n' +
-		          'Speed: '             + position.coords.speed             + '\n' +
-		          'Timestamp: '         + new Date(position.timestamp)      + '\n');
-		};
-
-		// onError Callback receives a PositionError object
-		//
-		function onError(error) {
-		    alert('code: '    + error.code    + '\n' +
-		          'message: ' + error.message + '\n');
-		}
-
-		navigator.geolocation.getCurrentPosition(onSuccess, onError);
+		document.addEventListener("deviceready", onDeviceReady, false);
 		
 		
 		$("#firstpanel").on("click", ".menu_button", function() {
@@ -108,12 +89,24 @@ $(function() {
 	});
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition);
+		navigator.geolocation.getCurrentPosition(showPosition, onError, {maximumAge:3000,timeout:5000,enableHighAccuracy:true});
 	} else {
 		$("#listbox").slideUp("slow");
 	}
 
 	function showPosition(position) {
+		
+		/*
+		 			alert('Latitude: '          + position.coords.latitude          + '\n' +
+		          'Longitude: '         + position.coords.longitude         + '\n' +
+		          'Altitude: '          + position.coords.altitude          + '\n' +
+		          'Accuracy: '          + position.coords.accuracy          + '\n' +
+		          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+		          'Heading: '           + position.coords.heading           + '\n' +
+		          'Speed: '             + position.coords.speed             + '\n' +
+		          'Timestamp: '         + new Date(position.timestamp)      + '\n');
+		 */
+		
 		$.ajax({
 			type : "POST",
 			url : ajurl + "map_handler.php",
@@ -137,6 +130,11 @@ $(function() {
 				}
 			}
 		});
+	}
+	
+	function onError(error) {
+	    //alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+	    alert('Felkod: '    + error.code    + '\n'+ error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');	    
 	}
 
 	function getList(type, value) {
