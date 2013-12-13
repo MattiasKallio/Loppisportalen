@@ -32,6 +32,7 @@ var getLocation = function() {
         alert(p.coords.latitude + " " + p.coords.longitude);
     };
     var locFail = function() {
+    	alert("geolocation failed");
     };
     navigator.geolocation.getCurrentPosition(suc, locFail);
 };
