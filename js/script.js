@@ -120,6 +120,7 @@ $(function() {
 				$("#listbox").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
+					$("#marketcontainer").slideUp("fast");
 					$("#listbox").html(response.list);
 					$("#firstpanel").panel("close");
 					$("#listbox").fadeIn("fast");
@@ -207,6 +208,7 @@ $(function() {
 				success : function(data) {
 					var response = JSON.parse(data);
 					if (response.result == "ok") {
+						$("#marketcontainer").slideUp("fast");
 						$("#listbox").html(response.html);
 						$("#firstpanel").panel("close");
 						$("#listbox").fadeIn("fast");
@@ -236,6 +238,7 @@ $(function() {
 				// $("#marketcontainer").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
+					$("#marketcontainer").fadeIn("fast");
 					$("#marketcontainer").html(response.html);
 					$("html, body").animate({
 						scrollTop : 0
