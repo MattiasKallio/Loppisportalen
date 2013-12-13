@@ -54,8 +54,6 @@ var app = {
 $(function() {
 	$(document).ready(function() {
 		app.initialize();
-		document.addEventListener("deviceready", onDeviceReady, false);
-		
 		
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
@@ -119,7 +117,7 @@ $(function() {
 			},
 			cache : false,
 			success : function(data) {
-				//$("#listbox").html(data);
+				$("#listbox").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$("#listbox").html(response.list);
@@ -134,7 +132,7 @@ $(function() {
 	
 	function onError(error) {
 	    //alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-	    alert('Felkod: '    + error.code    + '\n'+ error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');	    
+	    alert('Felkod: '    + error.code    + ' '+ error.message + '\n Vilket betyder att du behÃ¶ver klicka i nÃ¥got fÃ¶r att GPS:en ska kunna hitta Loppisar i nÃ¤rheten...');	    
 	}
 
 	function getList(type, value) {
@@ -193,7 +191,7 @@ $(function() {
 			case "closest":
 				fetch = false;
 				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition);
+					navigator.geolocation.getCurrentPosition(showPosition, onError, {maximumAge:3000,timeout:5000,enableHighAccuracy:true});
 				} else {
 					$("#listbox").slideUp("slow");
 				}
