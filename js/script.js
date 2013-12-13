@@ -51,9 +51,11 @@ var app = {
 	}
 };
 
+app.initialize();
+
 $(function() {
 	$(document).ready(function() {
-		app.initialize();
+		
 		
 		getLocation();
 
