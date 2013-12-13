@@ -51,11 +51,10 @@ var app = {
 	}
 };
 
-app.initialize();
-
 $(function() {
 	$(document).ready(function() {
-
+		
+		getLocation();
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			if(ths.length==1){
@@ -88,6 +87,7 @@ $(function() {
 	});
 
 	if (navigator.geolocation) {
+		check_network();
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
 		$("#listbox").slideUp("slow");
