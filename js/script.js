@@ -53,7 +53,7 @@ var app = {
 
 $(function() {
 	$(document).ready(function() {
-		//init();
+		app.initialize();
 		getLocation();
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
