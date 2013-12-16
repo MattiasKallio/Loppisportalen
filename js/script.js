@@ -2,6 +2,7 @@ var last_fetch_from = -99;
 var ad_platform_type = "";
 var maptype = "closest";
 var ajurl = "http://loppisportalen.se/app/";
+var watchID = null;
 
 var app = {
 	// Application Constructor
@@ -54,19 +55,20 @@ var app = {
 $(function() {
 	$(document).ready(function() {
 		app.initialize();
-		
+
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
-			if(ths.length==1){
+			navigator.geolocation.clearWatch(watchID);
+			if (ths.length == 1) {
 				getList(ths[0], 10);
-			}
-			else{
+			} else {
 				getList(ths[0], ths[1]);
 			}
 		});
 
 		$("#listbox").on("click", "a", function(e) {
 			e.preventDefault();
+			navigator.geolocation.clearWatch(watchID);
 			var rl = $(this).attr("href");
 			var a_cut = rl.split("?")[1];
 			var a_type = a_cut.split("=");
@@ -81,19 +83,24 @@ $(function() {
 				break;
 				case "typ":
 					getList(a_key, a_value);
-				break;				
+				break;
 			}
 		});
 	});
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition, onError, {maximumAge:3000,timeout:5000,enableHighAccuracy:true});
+		navigator.geolocation.getCurrentPosition(showPosition, onError, {
+			maximumAge : 3000,
+			timeout : 5000,
+			enableHighAccuracy : true
+		});
+		watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
 	} else {
 		$("#listbox").slideUp("slow");
 	}
 
 	function showPosition(position) {
-		
+
 		/*
 		 			alert('Latitude: '          + position.coords.latitude          + '\n' +
 		          'Longitude: '         + position.coords.longitude         + '\n' +
@@ -104,7 +111,7 @@ $(function() {
 		          'Speed: '             + position.coords.speed             + '\n' +
 		          'Timestamp: '         + new Date(position.timestamp)      + '\n');
 		 */
-		
+
 		$.ajax({
 			type : "POST",
 			url : ajurl + "map_handler.php",
@@ -117,29 +124,32 @@ $(function() {
 			},
 			cache : false,
 			success : function(data) {
-				$("#listbox").html(data);
+				//$("#listbox").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$("#marketcontainer").slideUp("fast");
 					$("#listbox").html(response.list);
 					$("#firstpanel").panel("close");
 					$("#listbox").fadeIn("fast");
+					$(".thinking_spinner").slideUp();
 				} else {
 					alertK(response.msg);
 				}
 			}
 		});
 	}
-	
+
 	function onError(error) {
-	    //alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-	    alert('Felkod: '    + error.code    + ' '+ error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');	    
+		//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+		alert('Felkod: ' + error.code + ' ' + error.message
+				+ '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
 	}
 
 	function getList(type, value) {
 		var dataarr;
 		var fetch = false;
 		$("#listbox").fadeOut("fast");
+		$(".thinking_spinner").slideDown();
 		switch (type) {
 			case "kommun":
 				fetch = true;
@@ -180,7 +190,7 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
-			break;	
+			break;
 			case "keywords":
 				fetch = true;
 				dataarr = {
@@ -188,16 +198,28 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
-			break;				
+			break;
 			case "closest":
 				fetch = false;
 				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition, onError, {maximumAge:3000,timeout:5000,enableHighAccuracy:true});
+					navigator.geolocation.getCurrentPosition(showPosition, onError, {
+						maximumAge : 3000,
+						timeout : 5000,
+						enableHighAccuracy : true
+					});
 				} else {
 					$("#listbox").slideUp("slow");
 				}
 			break;
 		}
+
+		if (!fetch) {
+			watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
+		}
+		else{
+			navigator.geolocation.clearWatch(watchID);
+		}
+			
 
 		if (fetch) {
 			$.ajax({
@@ -211,6 +233,7 @@ $(function() {
 						$("#marketcontainer").slideUp("fast");
 						$("#listbox").html(response.html);
 						$("#firstpanel").panel("close");
+						$(".thinking_spinner").slideUp();
 						$("#listbox").fadeIn("fast");
 					} else {
 						console.log(response.msg);
@@ -248,7 +271,6 @@ $(function() {
 				}
 			}
 		});
-
 	}
 
 });

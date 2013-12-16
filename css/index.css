@@ -151,6 +151,10 @@ td {
 	background: black;
 }
 
+.thinking_spinner{
+	text-align: center;
+}
+
 .blink {
 	animation: fade 3000ms infinite;
 	-webkit-animation: fade 3000ms infinite;
