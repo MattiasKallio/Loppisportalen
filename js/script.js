@@ -255,7 +255,6 @@ $(function() {
 				success : function(data) {
 					var response = JSON.parse(data);
 					if (response.result == "ok") {
-						
 						$("#listbox").html(response.html);
 						$("#firstpanel").panel("close");
 						$(".thinking_spinner").slideUp();
