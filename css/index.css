@@ -139,6 +139,14 @@ td {
 	color:white;
 }
 
+#thinking_text{
+	color:#a3a3a3;	
+}
+
+#thinking_text h4{
+	color:#a3a3a3;	
+}
+
 .menu_button {
 	font-weight: bold;
 	border-bottom: 1px dotted #d3d3d3;

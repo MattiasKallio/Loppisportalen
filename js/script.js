@@ -78,8 +78,8 @@ $(function() {
 		
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, onError, {
-				maximumAge : 20000,
-				timeout : 20000,
+				maximumAge : 3000,
+				timeout : 30000,
 				enableHighAccuracy : true
 			});
 			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 3000);
@@ -145,7 +145,7 @@ $(function() {
 		var dataarr;
 		var fetch = false;
 		$("#listbox").fadeOut("fast");
-		$(".thinking_spinner").slideDown();
+		var fetch_info = "Hämtar innehåll";
 		switch (type) {
 			case "kommun":
 				fetch = true;
@@ -154,6 +154,7 @@ $(function() {
 					"action" : type + "_list",
 					"kommun" : value
 				};
+				fetch_info = "<h4>Loppisar i området " + value+"</h4>";
 			break;
 			case "typ":
 				fetch = true;
@@ -162,6 +163,7 @@ $(function() {
 					"action" : type + "_list",
 					"typ" : value
 				};
+				fetch_info = "<h4>Loppisar av typen: "+ value+"</h4>";
 			break;
 			case "latest":
 				fetch = true;
@@ -170,6 +172,7 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
+				fetch_info = "<h4>De senaste loppisarna</h4>";
 			break;
 			case "weeks":
 				fetch = true;
@@ -178,6 +181,7 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
+				fetch_info = "<h4>Veckans annonser</h4>";
 			break;
 			case "omrade":
 				fetch = true;
@@ -186,6 +190,7 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
+				fetch_info = "<h4>Loppisar efter område</h4>";
 			break;
 			case "keywords":
 				fetch = true;
@@ -194,20 +199,25 @@ $(function() {
 					"action" : type + "_list",
 					"from" : value
 				};
+				fetch_info = "<h4>Loppisar efter nyckelord</h4>";
 			break;
 			case "closest":
 				fetch = false;
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(showPosition, onError, {
-						maximumAge : 20000,
-						timeout : 20000,
+						maximumAge : 3000,
+						timeout : 30000,
 						enableHighAccuracy : true
 					});
 				} else {
 					$("#listbox").slideUp("slow");
 				}
+				fetch_info = "<h4>Hämtar loppisar in närheten</h4>Här används Geolocation för att försöka se vilka loppisar som finns in närheten av dig.";
 			break;
 		}
+		
+		$(".thinking_spinner").slideDown();
+		$("#thinking_text").html(fetch_info);
 
 		/*if (!fetch) {
 			watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
