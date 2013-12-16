@@ -96,7 +96,7 @@ $(function() {
 			timeout : 5000,
 			enableHighAccuracy : true
 		});
-		watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
+		//watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
 	} else {
 		$("#listbox").slideUp("slow");
 	}
