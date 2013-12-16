@@ -88,18 +88,20 @@ $(function() {
 				break;
 			}
 		});
+		
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition, onError, {
+				maximumAge : 3000,
+				timeout : 5000,
+				enableHighAccuracy : true
+			});
+			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
+		} else {
+			$("#listbox").slideUp("slow");
+		}
+		
 	});
 
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition, onError, {
-			maximumAge : 3000,
-			timeout : 5000,
-			enableHighAccuracy : true
-		});
-		//watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
-	} else {
-		$("#listbox").slideUp("slow");
-	}
 
 	function showPosition(position) {
 
