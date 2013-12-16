@@ -149,8 +149,9 @@ $(function() {
 
 	function onError(error) {
 		//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-		alert('Felkod: ' + error.code + ' ' + error.message
-				+ '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+		$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+		$(".thinking_spinner").slideUp();
+		$("#listbox").fadeIn("fast");
 	}
 
 	function getList(type, value) {
