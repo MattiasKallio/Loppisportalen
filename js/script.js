@@ -21,7 +21,9 @@ var app = {
 	// The scope of 'this' is the event. In order to call the 'receivedEvent'
 	// function, we must explicity call 'app.receivedEvent(...);'
 	onDeviceReady : function() {
-		app.receivedEvent('deviceready');
+		document.addEventListener("backbutton", backbuttonHandler, false);
+		document.addEventListener("menubutton", menubuttonHandler, false);
+		app.receivedEvent('deviceready');	
 	},
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
@@ -35,12 +37,7 @@ var app = {
 };
 
 $(function() {
-	$(document).ready(function() {
-		app.initialize();
-
-		document.addEventListener("backbutton", backbuttonHandler, false);
-		document.addEventListener("menubutton", menubuttonHandler, false);
-		
+	$(document).ready(function() {		
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			/*if(watchID == null)
@@ -91,6 +88,9 @@ $(function() {
 		} else {
 			$("#listbox").slideUp("slow");
 		}
+		
+		
+		app.initialize();
 		
 	});
 
@@ -288,14 +288,6 @@ $(function() {
 		});
 	}
 	
-	function menubuttonHandler(){
-		$("#firstpanel").panel("open");
-	}
-	
-	function backbuttonHandler(){
-		alert("BACK!");
-	}
-
 });
 
 showAlert = function(message, title) {
@@ -304,4 +296,12 @@ showAlert = function(message, title) {
 	} else {
 		alert(title ? (title + ": " + message) : message);
 	}
+}
+
+function menubuttonHandler(){
+	$("#firstpanel").panel("open");
+}
+
+function backbuttonHandler(){
+	alert("BACK!");
 }
