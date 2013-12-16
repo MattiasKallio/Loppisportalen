@@ -2,7 +2,7 @@ var last_fetch_from = -99;
 var ad_platform_type = "";
 var maptype = "closest";
 var ajurl = "http://loppisportalen.se/app/";
-//var watchID = null;
+var watchID = null;
 
 var app = {
 	// Application Constructor
@@ -58,8 +58,8 @@ $(function() {
 
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
-			/*if(watchID == null)
-				navigator.geolocation.clearWatch(watchID);*/
+			if(watchID == null)
+				navigator.geolocation.clearWatch(watchID);
 			if (ths.length == 1) {
 				getList(ths[0], 10);
 			} else {
@@ -69,8 +69,8 @@ $(function() {
 
 		$("#listbox").on("click", "a", function(e) {
 			e.preventDefault();
-			/*if(watchID == null)
-				navigator.geolocation.clearWatch(watchID);*/
+			if(watchID == null)
+				navigator.geolocation.clearWatch(watchID);
 			var rl = $(this).attr("href");
 			var a_cut = rl.split("?")[1];
 			var a_type = a_cut.split("=");
@@ -91,11 +91,11 @@ $(function() {
 		
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, onError, {
-				maximumAge : 3000,
+				maximumAge : 20000,
 				timeout : 20000,
 				enableHighAccuracy : true
 			});
-			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
+			watchID = navigator.geolocation.watchPosition(showPosition, onError, 3000);
 		} else {
 			$("#listbox").slideUp("slow");
 		}
@@ -211,7 +211,7 @@ $(function() {
 				fetch = false;
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(showPosition, onError, {
-						maximumAge : 3000,
+						maximumAge : 20000,
 						timeout : 20000,
 						enableHighAccuracy : true
 					});
@@ -220,7 +220,7 @@ $(function() {
 				}
 			break;
 		}
-/*
+
 		if (!fetch) {
 			watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
 		}
@@ -228,7 +228,7 @@ $(function() {
 			if(watchID == null)
 			navigator.geolocation.clearWatch(watchID);
 		}
-	*/		
+		
 		$("#firstpanel").panel("close");
 
 		if (fetch) {
