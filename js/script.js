@@ -139,7 +139,7 @@ $(function() {
 				} else {
 					alertK(response.msg);
 				}
-			}
+			},
 			error : function(e){
 				alert(e);
 			}
