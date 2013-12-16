@@ -97,207 +97,206 @@ $(function() {
 		app.initialize();
 		
 	});
+	
+});
 
+function showPosition(position) {
+	var prev_page = "closest";
+	/*
+	 			alert('Latitude: '          + position.coords.latitude          + '\n' +
+	          'Longitude: '         + position.coords.longitude         + '\n' +
+	          'Altitude: '          + position.coords.altitude          + '\n' +
+	          'Accuracy: '          + position.coords.accuracy          + '\n' +
+	          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+	          'Heading: '           + position.coords.heading           + '\n' +
+	          'Speed: '             + position.coords.speed             + '\n' +
+	          'Timestamp: '         + new Date(position.timestamp)      + '\n');
+	 */
 
-	function showPosition(position) {
-		var prev_page = "closest";
-		/*
-		 			alert('Latitude: '          + position.coords.latitude          + '\n' +
-		          'Longitude: '         + position.coords.longitude         + '\n' +
-		          'Altitude: '          + position.coords.altitude          + '\n' +
-		          'Accuracy: '          + position.coords.accuracy          + '\n' +
-		          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-		          'Heading: '           + position.coords.heading           + '\n' +
-		          'Speed: '             + position.coords.speed             + '\n' +
-		          'Timestamp: '         + new Date(position.timestamp)      + '\n');
-		 */
-
-		$.ajax({
-			type : "POST",
-			url : ajurl + "map_handler.php",
-			data : {
-				"action" : "get_info",
-				"maptype" : maptype,
-				"lon" : position.coords.longitude,
-				"lat" : position.coords.latitude,
-				"dist" : 50
-			},
-			cache : false,
-			success : function(data) {
-				$("#listbox").html(data);
-				var response = JSON.parse(data);
-				if (response.result == "ok") {
-					$("#marketcontainer").slideUp("fast");
-					$("#listbox").html(response.list);
-					$("#firstpanel").panel("close");
-					$("#listbox").fadeIn("fast");
-					$(".thinking_spinner").slideUp();
-				} else {
-					alertK(response.msg);
-				}
-			},
-			error : function(data, status, e) {
-				for (i in data)
-					alert(data[i]);
+	$.ajax({
+		type : "POST",
+		url : ajurl + "map_handler.php",
+		data : {
+			"action" : "get_info",
+			"maptype" : maptype,
+			"lon" : position.coords.longitude,
+			"lat" : position.coords.latitude,
+			"dist" : 50
+		},
+		cache : false,
+		success : function(data) {
+			$("#listbox").html(data);
+			var response = JSON.parse(data);
+			if (response.result == "ok") {
+				$("#marketcontainer").slideUp("fast");
+				$("#listbox").html(response.list);
+				$("#firstpanel").panel("close");
+				$("#listbox").fadeIn("fast");
+				$(".thinking_spinner").slideUp();
+			} else {
+				alertK(response.msg);
 			}
-		});
-	}
-
-	function onError(error) {
-		//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-		$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
-		$(".thinking_spinner").slideUp();
-		$("#listbox").fadeIn("fast");
-	}
-
-	function getList(type, value) {
-		prev_type = type;
-		prev_value = value;
-		var dataarr;
-		var fetch = false;
-		$("#listbox").fadeOut("fast");
-		var fetch_info = "Hämtar innehåll";
-		switch (type) {
-			case "kommun":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"kommun" : value
-				};
-				fetch_info = "<h4>Loppisar i området " + value+"</h4>";
-			break;
-			case "typ":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"typ" : value
-				};
-				var nametype = $("#typ_"+value).html();
-				fetch_info = "<h4>Loppisar av typen: "+ nametype+"</h4>";
-			break;
-			case "latest":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"from" : value
-				};
-				fetch_info = "<h4>De senaste loppisarna</h4>";
-			break;
-			case "weeks":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"from" : value
-				};
-				fetch_info = "<h4>Veckans annonser</h4>";
-			break;
-			case "omrade":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"from" : value
-				};
-				fetch_info = "<h4>Loppisar efter område</h4>";
-			break;
-			case "keywords":
-				fetch = true;
-				dataarr = {
-					"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
-					"action" : type + "_list",
-					"from" : value
-				};
-				fetch_info = "<h4>Loppisar efter nyckelord</h4>";
-			break;
-			case "closest":
-				fetch = false;
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition, onError, {
-						maximumAge : 3000,
-						timeout : 30000,
-						enableHighAccuracy : true
-					});
-				} else {
-					$("#listbox").slideUp("slow");
-				}
-				fetch_info = "<h4>Hämtar loppisar in närheten</h4>Här används Geolocation för att försöka se vilka loppisar som finns in närheten av dig.";
-			break;
-			case "exit":
-				fetch = false;
-				navigator.app.exitApp();
-			break;
+		},
+		error : function(data, status, e) {
+			for (i in data)
+				alert(data[i]);
 		}
-		
-		$(".thinking_spinner").slideDown();
-		$("#thinking_text").html(fetch_info);
+	});
+}
 
-		/*if (!fetch) {
-			watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
-		}
-		else{
-			if(watchID == null)
-			navigator.geolocation.clearWatch(watchID);
-		}*/
-		
-		$("#firstpanel").panel("close");
-		$("#marketcontainer").slideUp("slow");
+function onError(error) {
+	//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+	$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+	$(".thinking_spinner").slideUp();
+	$("#listbox").fadeIn("fast");
+}
 
-		if (fetch) {
-			$.ajax({
-				type : "POST",
-				url : ajurl + "getcontent.php",
-				data : dataarr,
-				cache : false,
-				success : function(data) {
-					var response = JSON.parse(data);
-					if (response.result == "ok") {
-						$("#listbox").html(response.html);
-						$("#firstpanel").panel("close");
-						$(".thinking_spinner").slideUp();
-						$("#listbox").fadeIn("fast");
-					} else {
-						alert(response.msg);
-					}
-				}
-			});
-		}
+function getList(type, value) {
+	prev_type = type;
+	prev_value = value;
+	var dataarr;
+	var fetch = false;
+	$("#listbox").fadeOut("fast");
+	var fetch_info = "Hämtar innehåll";
+	switch (type) {
+		case "kommun":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"kommun" : value
+			};
+			fetch_info = "<h4>Loppisar i området " + value+"</h4>";
+		break;
+		case "typ":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"typ" : value
+			};
+			var nametype = $("#typ_"+value).html();
+			fetch_info = "<h4>Loppisar av typen: "+ nametype+"</h4>";
+		break;
+		case "latest":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"from" : value
+			};
+			fetch_info = "<h4>De senaste loppisarna</h4>";
+		break;
+		case "weeks":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"from" : value
+			};
+			fetch_info = "<h4>Veckans annonser</h4>";
+		break;
+		case "omrade":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"from" : value
+			};
+			fetch_info = "<h4>Loppisar efter område</h4>";
+		break;
+		case "keywords":
+			fetch = true;
+			dataarr = {
+				"mega_secret_code" : "0ed75fcaffd55c3326efccf12f3ae737",
+				"action" : type + "_list",
+				"from" : value
+			};
+			fetch_info = "<h4>Loppisar efter nyckelord</h4>";
+		break;
+		case "closest":
+			fetch = false;
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition, onError, {
+					maximumAge : 3000,
+					timeout : 30000,
+					enableHighAccuracy : true
+				});
+			} else {
+				$("#listbox").slideUp("slow");
+			}
+			fetch_info = "<h4>Hämtar loppisar in närheten</h4>Här används Geolocation för att försöka se vilka loppisar som finns in närheten av dig.";
+		break;
+		case "exit":
+			fetch = false;
+			navigator.app.exitApp();
+		break;
 	}
+	
+	$(".thinking_spinner").slideDown();
+	$("#thinking_text").html(fetch_info);
 
-	function getMarket(id) {
+	/*if (!fetch) {
+		watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
+	}
+	else{
+		if(watchID == null)
+		navigator.geolocation.clearWatch(watchID);
+	}*/
+	
+	$("#firstpanel").panel("close");
+	$("#marketcontainer").slideUp("slow");
 
-		var data = {
-			mega_secret_code : "0ed75fcaffd55c3326efccf12f3ae737",
-			action : "market_box",
-			id : id,
-			screen_w : window.innerWidth
-		};
-
+	if (fetch) {
 		$.ajax({
 			type : "POST",
 			url : ajurl + "getcontent.php",
-			data : data,
+			data : dataarr,
 			cache : false,
 			success : function(data) {
-				// $("#marketcontainer").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
-					$("#marketcontainer").fadeIn("fast");
-					$("#marketcontainer").html(response.html);
-					$("html, body").animate({
-						scrollTop : 0
-					}, "slow");
+					$("#listbox").html(response.html);
+					$("#firstpanel").panel("close");
+					$(".thinking_spinner").slideUp();
+					$("#listbox").fadeIn("fast");
 				} else {
-					$("#marketcontainer").html(data);
+					alert(response.msg);
 				}
 			}
 		});
 	}
-	
-});
+}
+
+function getMarket(id) {
+
+	var data = {
+		mega_secret_code : "0ed75fcaffd55c3326efccf12f3ae737",
+		action : "market_box",
+		id : id,
+		screen_w : window.innerWidth
+	};
+
+	$.ajax({
+		type : "POST",
+		url : ajurl + "getcontent.php",
+		data : data,
+		cache : false,
+		success : function(data) {
+			// $("#marketcontainer").html(data);
+			var response = JSON.parse(data);
+			if (response.result == "ok") {
+				$("#marketcontainer").fadeIn("fast");
+				$("#marketcontainer").html(response.html);
+				$("html, body").animate({
+					scrollTop : 0
+				}, "slow");
+			} else {
+				$("#marketcontainer").html(data);
+			}
+		}
+	});
+}
 
 showAlert = function(message, title) {
 	if (navigator.notification) {
