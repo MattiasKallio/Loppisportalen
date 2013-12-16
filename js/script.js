@@ -58,7 +58,8 @@ $(function() {
 
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
-			navigator.geolocation.clearWatch(watchID);
+			if(watchID == null)
+				navigator.geolocation.clearWatch(watchID);
 			if (ths.length == 1) {
 				getList(ths[0], 10);
 			} else {
@@ -68,7 +69,8 @@ $(function() {
 
 		$("#listbox").on("click", "a", function(e) {
 			e.preventDefault();
-			navigator.geolocation.clearWatch(watchID);
+			if(watchID == null)
+				navigator.geolocation.clearWatch(watchID);
 			var rl = $(this).attr("href");
 			var a_cut = rl.split("?")[1];
 			var a_type = a_cut.split("=");
@@ -141,8 +143,10 @@ $(function() {
 
 	function onError(error) {
 		//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-		alert('Felkod: ' + error.code + ' ' + error.message
-				+ '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+		alert('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+		$("#firstpanel").panel("close");
+		$("#listbox").fadeIn("fast");
+		$(".thinking_spinner").slideUp();
 	}
 
 	function getList(type, value) {
@@ -217,7 +221,8 @@ $(function() {
 			watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
 		}
 		else{
-			navigator.geolocation.clearWatch(watchID);
+			if(watchID == null)
+				navigator.geolocation.clearWatch(watchID);
 		}
 			
 
