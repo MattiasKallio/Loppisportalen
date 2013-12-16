@@ -212,7 +212,7 @@ $(function() {
 				if (navigator.geolocation) {
 					navigator.geolocation.getCurrentPosition(showPosition, onError, {
 						maximumAge : 3000,
-						timeout : 5000,
+						timeout : 20000,
 						enableHighAccuracy : true
 					});
 				} else {
