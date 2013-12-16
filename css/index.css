@@ -134,7 +134,10 @@ td {
 	padding: 0;
 }
 
-
+#firstpanel{
+	background:black;
+	color:white;
+}
 
 .menu_button {
 	font-weight: bold;
