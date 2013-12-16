@@ -30,12 +30,17 @@ var app = {
 		// alert("Device platform: "+device.platform);
 		ad_platform_type = device.platform != "undefined" ? device.platform : ad_platform_type;
 	}
+	
+	
 };
 
 $(function() {
 	$(document).ready(function() {
 		app.initialize();
 
+		document.addEventListener("backbutton", backbuttonHandler, false);
+		document.addEventListener("menubutton", menubuttonHandler, false);
+		
 		$("#firstpanel").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			/*if(watchID == null)
@@ -163,7 +168,8 @@ $(function() {
 					"action" : type + "_list",
 					"typ" : value
 				};
-				fetch_info = "<h4>Loppisar av typen: "+ value+"</h4>";
+				var nametype = $("#typ_"+value).html();
+				fetch_info = "<h4>Loppisar av typen: "+ nametype+"</h4>";
 			break;
 			case "latest":
 				fetch = true;
@@ -228,6 +234,7 @@ $(function() {
 		}*/
 		
 		$("#firstpanel").panel("close");
+		$("#marketcontainer").slideUp("slow");
 
 		if (fetch) {
 			$.ajax({
@@ -238,7 +245,7 @@ $(function() {
 				success : function(data) {
 					var response = JSON.parse(data);
 					if (response.result == "ok") {
-						$("#marketcontainer").slideUp("fast");
+						
 						$("#listbox").html(response.html);
 						$("#firstpanel").panel("close");
 						$(".thinking_spinner").slideUp();
@@ -279,6 +286,14 @@ $(function() {
 				}
 			}
 		});
+	}
+	
+	function menubuttonHandler(){
+		$("#firstpanel").panel("open");
+	}
+	
+	function backbuttonHandler(){
+		alert("BACK!");
 	}
 
 });
