@@ -92,7 +92,7 @@ $(function() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, onError, {
 				maximumAge : 3000,
-				timeout : 5000,
+				timeout : 20000,
 				enableHighAccuracy : true
 			});
 			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 6000);
@@ -140,8 +140,9 @@ $(function() {
 					alertK(response.msg);
 				}
 			},
-			error : function(e){
-				alert(e);
+			error : function(data, status, e) {
+				for (i in data)
+					alert(data[i]);
 			}
 		});
 	}
