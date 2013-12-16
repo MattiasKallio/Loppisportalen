@@ -1,7 +1,10 @@
 var last_fetch_from = -99;
+var prev_type = "closest";
+var prev_value = "closest";
 var ad_platform_type = "";
 var maptype = "closest";
 var ajurl = "http://loppisportalen.se/app/";
+
 //var watchID = null;
 
 var app = {
@@ -96,7 +99,7 @@ $(function() {
 
 
 	function showPosition(position) {
-
+		var prev_page = "closest";
 		/*
 		 			alert('Latitude: '          + position.coords.latitude          + '\n' +
 		          'Longitude: '         + position.coords.longitude         + '\n' +
@@ -147,6 +150,8 @@ $(function() {
 	}
 
 	function getList(type, value) {
+		var prev_type = type;
+		var prev_value = value;
 		var dataarr;
 		var fetch = false;
 		$("#listbox").fadeOut("fast");
@@ -219,6 +224,9 @@ $(function() {
 					$("#listbox").slideUp("slow");
 				}
 				fetch_info = "<h4>Hämtar loppisar in närheten</h4>Här används Geolocation för att försöka se vilka loppisar som finns in närheten av dig.";
+			break;
+			case "exit":
+				navigator.app.exitApp();
 			break;
 		}
 		
@@ -303,5 +311,10 @@ function menubuttonHandler(){
 }
 
 function backbuttonHandler(){
-	alert("BACK!");
+	if(prev_value != "closest"){
+		getList(prev_type, prev_value);
+	}
+	else{
+		navigator.app.exitApp();
+	}
 }
