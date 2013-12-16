@@ -151,8 +151,8 @@ $(function() {
 	}
 
 	function getList(type, value) {
-		var prev_type = type;
-		var prev_value = value;
+		prev_type = type;
+		prev_value = value;
 		var dataarr;
 		var fetch = false;
 		$("#listbox").fadeOut("fast");
