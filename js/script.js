@@ -126,7 +126,7 @@ $(function() {
 			},
 			cache : false,
 			success : function(data) {
-				//$("#listbox").html(data);
+				$("#listbox").html(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$("#marketcontainer").slideUp("fast");
