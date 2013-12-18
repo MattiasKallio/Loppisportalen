@@ -41,9 +41,11 @@
 	<div data-role="page" id="home">
 
 		<div data-role="panel" id="firstpanel" data-display="push">
-			<form id="searchform" action="" method="post">
-				<input type="text" id="search" placeholder="Sök" />
-			</form>
+			<!-- form id="searchform" action="" method="post">
+				<input type="text" id="search" placeholder="Sök" style="width:80%;" />
+				<input type="submit" value="Sök" style="width:20%" />
+			</form-->
+			<h2>Hitta</h2>
 			<div class="menu_button" id="closest">I närheten</div>
 			<div class="menu_button" id="weeks">Veckans annonser</div>
 			<div class="menu_button" id="omrade">Område</div>
@@ -58,7 +60,7 @@
 			<div class="menu_button" id="typ_pakethallarloppis">Pakethållarloppis</div>
 			<div class="menu_button" id="typ_tillfallig">Tillfällig</div>
 			<div class="menu_button" id="typ_julmarknad">Julmarknad</div>
-			<h2>Logout</h2>
+			<h2>Annat</h2>
 			<div class="menu_button" id="exit">Stäng appen</div>
 		</div>
 
@@ -74,6 +76,14 @@
 				<img src="img/thinking.gif" />
 			</div>
 			<div id="listbox">
+				<div class="splash_buttons">
+					<div class="menu_button" id="closest">I närheten</div>
+					<div class="menu_button" id="weeks">Veckans annonser</div>
+					<div class="menu_button" id="omrade">Område</div>
+					<!-- div class="menu_button" id="keywords">Nyckelord</div> -->
+					<div class="menu_button" id="latest">Senaste</div>
+					<div class="menu_button" id="exit">Stäng</div>
+				</div>
 			</div>
 
 

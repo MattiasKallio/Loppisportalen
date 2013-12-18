@@ -42,7 +42,7 @@ var app = {
 
 $(function() {
 	$(document).ready(function() {		
-		$("#firstpanel").on("click", ".menu_button", function() {
+		$("#firstpanel, .splash_buttons").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			/*if(watchID == null)
 				navigator.geolocation.clearWatch(watchID);*/
@@ -82,7 +82,7 @@ $(function() {
 			}
 		});
 		
-		if (navigator.geolocation) {
+		/*if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(showPosition, onError, {
 				maximumAge : 3000,
 				timeout : 30000,
@@ -91,7 +91,7 @@ $(function() {
 			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 3000);
 		} else {
 			$("#listbox").slideUp("slow");
-		}
+		}*/
 		
 		
 		app.initialize();
@@ -134,7 +134,7 @@ function showPosition(position) {
 				$("#listbox").fadeIn("fast");
 				$(".thinking_spinner").slideUp();
 			} else {
-				alertK(response.msg);
+				alert(response.msg);
 			}
 		},
 		error : function(data, status, e) {
@@ -311,5 +311,12 @@ function menubuttonHandler(){
 }
 
 function backbuttonHandler(){
-	getList(prev_type, prev_value);
+	if(!wannago){
+		getList(prev_type, prev_value);
+		wannago = true;
+	}
+	else{
+		wannago=false;
+		$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='closest'>I närheten</div><div class='menu_button' id='weeks'>Veckans annonser</div><div class='menu_button' id='omrade'>Område</div><div class='menu_button' id='latest'>Senaste</div></div>");
+	}
 }

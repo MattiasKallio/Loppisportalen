@@ -43,8 +43,9 @@ body {
 .app {
 	background: url(../img/logo.png) no-repeat center top;
 	/* 170px x 200px */
-	position: absolute; /* position in the center of the screen */ left :
-	50%; top : 50%;
+	position: absolute; /* position in the center of the screen */
+	left: 50%;
+	top: 50%;
 	height: 50px; /* text area height */
 	width: 225px; /* text area width */
 	text-align: center;
@@ -85,7 +86,7 @@ h4 {
 }
 
 a {
-	color:#5e011e;
+	color: #5e011e;
 	text-decoration: none;
 }
 
@@ -97,9 +98,9 @@ td {
 	vertical-align: top;
 }
 
-.ui-input-text{
-	background:white;
-	padding:3px;
+.ui-input-text {
+	background: white;
+	padding: 3px;
 }
 
 .event {
@@ -134,23 +135,28 @@ td {
 	padding: 0;
 }
 
-#firstpanel{
-	background:black;
-	color:white;
+#firstpanel {
+	background: black;
+	color: white;
 }
 
-#thinking_text{
-	color:#a3a3a3;	
+.thinking_spinner {
+	display: none;
+	text-align: center;
 }
 
-#thinking_text h4{
-	color:#a3a3a3;	
+#thinking_text {
+	color: #a3a3a3;
+}
+
+#thinking_text h4 {
+	color: #a3a3a3;
 }
 
 .menu_button {
 	font-weight: bold;
 	border-bottom: 1px dotted #d3d3d3;
-	background:none;
+	background: none;
 	padding: 6px 0px 5px 10px;
 	cursor: pointer;
 	color: #777;
@@ -162,8 +168,18 @@ td {
 	background: black;
 }
 
-.thinking_spinner{
+.splash_buttons .menu_button {
+	background: #a90329; /* Old browsers */
+	background: linear-gradient(to bottom, #a90329 0%, #8f0222 44%, #6d0019 100%);
+	/* W3C */
+	font-size: 19px;
+	text-transform: uppercase;
 	text-align: center;
+	padding: 20px;
+	margin: 5px 20px 0px 20px;
+	border-radius: 20px;
+	color: #FFF;
+	border: 0px;
 }
 
 .blink {
@@ -174,8 +190,8 @@ td {
 .ui-content {
 	background-color: #fcf7f3;
 	background-image: url(../img/bigbg.jpg);
-	background-repeat:repeat;
-	color: #000;	
+	background-repeat: repeat;
+	color: #000;
 	font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial,
 		sans-serif;
 	background-repeat: repeat-x;
@@ -184,7 +200,7 @@ td {
 }
 
 .ui-body-c,.ui-overlay-c {
-
+	
 }
 
 .content {
