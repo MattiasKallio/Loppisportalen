@@ -103,7 +103,7 @@ function showPosition(position) {
 	          'Timestamp: '         + new Date(position.timestamp)      + '\n');
 	 */
 	
-	var data = {
+	var data_send = {
 			"action" : "get_info",
 			"maptype" : maptype,
 			"lon" : position.coords.longitude,
@@ -115,7 +115,7 @@ function showPosition(position) {
 	$.ajax({
 		type : "POST",
 		url : ajurl + "map_handler.php",
-		data : data,
+		data : data_send,
 		cache : false,
 		success : function(data) {
 			$("#listbox").html(data);
@@ -131,8 +131,10 @@ function showPosition(position) {
 			}
 		},
 		error : function(data, status, e) {
-			for (i in data)
-				alert(data[i]);
+			/*for (i in data)
+				alert(data[i]);*/
+			$("#listbox").html("Det gick inte hämta geolocation information");
+			
 		}
 	});
 }
@@ -270,6 +272,11 @@ function getList(type, value) {
 				} else {
 					alert(response.msg);
 				}
+			},
+			error : function(data, status, e) {
+				/*for (i in data)
+					alert(data[i]);*/
+				$("#listbox").html("Det gick inte hämta information");
 			}
 		});
 	}
