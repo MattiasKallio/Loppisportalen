@@ -102,18 +102,20 @@ function showPosition(position) {
 	          'Speed: '             + position.coords.speed             + '\n' +
 	          'Timestamp: '         + new Date(position.timestamp)      + '\n');
 	 */
-
-	$.ajax({
-		type : "POST",
-		url : ajurl + "map_handler.php",
-		data : {
+	
+	var data = {
 			"action" : "get_info",
 			"maptype" : maptype,
 			"lon" : position.coords.longitude,
 			"lat" : position.coords.latitude,
 			"dist" : 50,
 			"onlyopen" : onlyopen
-		},
+		}
+
+	$.ajax({
+		type : "POST",
+		url : ajurl + "map_handler.php",
+		data : data,
 		cache : false,
 		success : function(data) {
 			$("#listbox").html(data);
@@ -206,7 +208,7 @@ function getList(type, value) {
 		break;
 		case "closest":
 			fetch = false;
-			var onlyopen = false;
+			onlyopen = false;
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(showPosition, onError, {
 					maximumAge : 3000,
@@ -220,7 +222,7 @@ function getList(type, value) {
 		break;
 		case "surfin":
 			fetch = false;
-			var onlyopen = true;
+			onlyopen = true;
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(showPosition, onError, {
 					maximumAge : 3000,
