@@ -4,7 +4,9 @@ var prev_value = "closest";
 var wannago = false;
 var ad_platform_type = "";
 var maptype = "closest";
+var onlyopen = false;
 var ajurl = "http://loppisportalen.se/app/";
+//var ajurl = "http://localhost/loppisportalen/app/";
 
 //var watchID = null;
 
@@ -82,18 +84,6 @@ $(function() {
 			}
 		});
 		
-		/*if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition, onError, {
-				maximumAge : 3000,
-				timeout : 30000,
-				enableHighAccuracy : true
-			});
-			//watchID = navigator.geolocation.watchPosition(showPosition, onError, 3000);
-		} else {
-			$("#listbox").slideUp("slow");
-		}*/
-		
-		
 		app.initialize();
 		
 	});
@@ -121,17 +111,18 @@ function showPosition(position) {
 			"maptype" : maptype,
 			"lon" : position.coords.longitude,
 			"lat" : position.coords.latitude,
-			"dist" : 50
+			"dist" : 50,
+			"onlyopen" : onlyopen
 		},
 		cache : false,
 		success : function(data) {
 			$("#listbox").html(data);
 			var response = JSON.parse(data);
 			if (response.result == "ok") {
-				$("#marketcontainer").slideUp("fast");
+				$("#marketcontainer").hide();
 				$("#listbox").html(response.list);
 				$("#firstpanel").panel("close");
-				$("#listbox").fadeIn("fast");
+				$("#listbox").show();
 				$(".thinking_spinner").slideUp();
 			} else {
 				alert(response.msg);
@@ -145,10 +136,9 @@ function showPosition(position) {
 }
 
 function onError(error) {
-	//alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 	$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
 	$(".thinking_spinner").slideUp();
-	$("#listbox").fadeIn("fast");
+	$("#listbox").show();
 }
 
 function getList(type, value) {
@@ -156,7 +146,7 @@ function getList(type, value) {
 	prev_value = value;
 	var dataarr;
 	var fetch = false;
-	$("#listbox").fadeOut("fast");
+	$("#listbox").hide();
 	var fetch_info = "Hämtar innehåll";
 	switch (type) {
 		case "kommun":
@@ -216,6 +206,7 @@ function getList(type, value) {
 		break;
 		case "closest":
 			fetch = false;
+			var onlyopen = false;
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(showPosition, onError, {
 					maximumAge : 3000,
@@ -223,10 +214,24 @@ function getList(type, value) {
 					enableHighAccuracy : true
 				});
 			} else {
-				$("#listbox").slideUp("slow");
+				$("#listbox").hide();
 			}
 			fetch_info = "<h4>Hämtar loppisar in närheten</h4>Här används Geolocation för att försöka se vilka loppisar som finns in närheten av dig.";
 		break;
+		case "surfin":
+			fetch = false;
+			var onlyopen = true;
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition, onError, {
+					maximumAge : 3000,
+					timeout : 30000,
+					enableHighAccuracy : true
+				});
+			} else {
+				$("#listbox").hide();
+			}
+			fetch_info = "<h4>Hämtar info för loppis-surfande</h4>Information hämtas om loppisar i din närhet som har öppet just nu.";
+		break;		
 		case "exit":
 			fetch = false;
 			navigator.app.exitApp();
@@ -245,7 +250,7 @@ function getList(type, value) {
 	}*/
 	
 	$("#firstpanel").panel("close");
-	$("#marketcontainer").slideUp("slow");
+	$("#marketcontainer").hide();
 
 	if (fetch) {
 		$.ajax({
@@ -259,7 +264,7 @@ function getList(type, value) {
 					$("#listbox").html(response.html);
 					$("#firstpanel").panel("close");
 					$(".thinking_spinner").slideUp();
-					$("#listbox").fadeIn("fast");
+					$("#listbox").show();
 				} else {
 					alert(response.msg);
 				}
@@ -286,7 +291,7 @@ function getMarket(id) {
 			// $("#marketcontainer").html(data);
 			var response = JSON.parse(data);
 			if (response.result == "ok") {
-				$("#marketcontainer").fadeIn("fast");
+				$("#marketcontainer").show();
 				$("#marketcontainer").html(response.html);
 				$("html, body").animate({
 					scrollTop : 0

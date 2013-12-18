@@ -172,14 +172,18 @@ td {
 	background: #a90329; /* Old browsers */
 	background: linear-gradient(to bottom, #a90329 0%, #8f0222 44%, #6d0019 100%);
 	/* W3C */
-	font-size: 19px;
 	text-transform: uppercase;
 	text-align: center;
+	font-size:12px;
 	padding: 20px;
 	margin: 5px 20px 0px 20px;
 	border-radius: 20px;
 	color: #FFF;
 	border: 0px;
+}
+
+.splash_buttons .menu_button h4{
+	color: #FF9B9B
 }
 
 .blink {
