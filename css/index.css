@@ -225,7 +225,7 @@ td {
 	text-align: left;
 	width: 100%;
 	border-radius: 5px;
-	font-size: 70%;
+	font-size: 100%;
 	vertical-align: top;
 }
 
@@ -251,7 +251,7 @@ td {
 .admob {
 	color: black;
 	font-weight: bold;
-	font-size: 70%;
+	font-size: 100%;
 }
 
 .admob a {
