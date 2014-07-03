@@ -211,6 +211,13 @@ td {
 	padding: 10px;
 }
 
+.marketcontainer{
+	display: block;
+	margin-bottom: 2em;
+	padding-bottom: 2em;
+	border-bottom: 3px solid #000;
+}
+
 .marketlist {
 	clear: both;
 	width: 100%;

@@ -5,8 +5,8 @@ var wannago = false;
 var ad_platform_type = "";
 var maptype = "closest";
 var onlyopen = false;
-var ajurl = "http://loppisportalen.se/app/";
-//var ajurl = "http://localhost/loppisportalen/app/";
+//var ajurl = "http://loppisportalen.se/app/";
+var ajurl = "http://localhost/loppisportalen/app/";
 
 //var watchID = null;
 
@@ -127,7 +127,7 @@ function showPosition(position) {
 				$("#listbox").show();
 				$(".thinking_spinner").slideUp();
 			} else {
-				alert(response.msg);
+				$("#listbox").html(response.msg);
 			}
 		},
 		error : function(data, status, e) {
@@ -140,7 +140,7 @@ function showPosition(position) {
 }
 
 function onError(error) {
-	$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten...');
+	$("#listbox").html('Felkod: ' + error.code + ' ' + error.message + '\n Vilket betyder att du behöver klicka i något för att GPS:en ska kunna hitta Loppisar i närheten eller att du helt enkelt inte har någon mottagning på GPS:en...');
 	$(".thinking_spinner").slideUp();
 	$("#listbox").show();
 }
@@ -263,6 +263,7 @@ function getList(type, value) {
 			data : dataarr,
 			cache : false,
 			success : function(data) {
+				console.log(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$("#listbox").html(response.html);
@@ -331,6 +332,7 @@ function backbuttonHandler(){
 	}
 	else{
 		wannago=false;
-		$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='closest'>I närheten</div><div class='menu_button' id='weeks'>Veckans annonser</div><div class='menu_button' id='omrade'>Område</div><div class='menu_button' id='latest'>Senaste</div></div>");
+		//$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='closest'>I närheten</div><div class='menu_button' id='weeks'>Veckans annonser</div><div class='menu_button' id='omrade'>Område</div><div class='menu_button' id='latest'>Senaste</div></div>");
+		$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='surfin'><h4>Surfa</h4>Använder GPS för att hitta loppisar i närheten av där du är som är öppna idag</div><div class='menu_button' id='weeks'><h4>Veckans annonser</h4>Loppisar med aktuella erbjudanden eller annat intressant den här veckan</div><div class='menu_button' id='omrade'><h4>Område</h4>Hitta loppisar i ett visst område</div><div class='menu_button' id='latest'><h4>Senaste</h4>De senast tillagda loppisarna här på loppisportalen</div><div class='menu_button' id='exit'><h4>Stäng</h4>Stänger appen och gör något annat spännande</div></div>");
 	}
 }
