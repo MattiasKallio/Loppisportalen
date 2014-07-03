@@ -44,7 +44,8 @@ var app = {
 
 $(function() {
 	$(document).ready(function() {		
-		$("#firstpanel, .splash_buttons").on("click", ".menu_button", function() {
+		
+		$("#firstpanel, #listbox").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			/*if(watchID == null)
 				navigator.geolocation.clearWatch(watchID);*/
@@ -118,11 +119,13 @@ function showPosition(position) {
 		data : data_send,
 		cache : false,
 		success : function(data) {
-			$("#listbox").html(data);
+			//$("#listbox").html(data);
+			console.log(data);
 			var response = JSON.parse(data);
 			if (response.result == "ok") {
 				$("#marketcontainer").hide();
-				$("#listbox").html(response.list);
+				var liststr = response.list == "" ? "Du är verkligen ute i terrängen, det finns inga loppisar i närheten av dig är jag rädd. Det kan bero på att du har GPS avstängt, eller att du är utom räckhåll för signalerna också." : response.list;
+				$("#listbox").html(liststr);
 				$("#firstpanel").panel("close");
 				$("#listbox").show();
 				$(".thinking_spinner").slideUp();
@@ -235,7 +238,15 @@ function getList(type, value) {
 				$("#listbox").hide();
 			}
 			fetch_info = "<h4>Hämtar info för loppis-surfande</h4>Information hämtas om loppisar i din närhet som har öppet just nu.";
+		break;	
+		case "firstpage":
+			fetch = false;
+			onlyopen = true;
+			$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='surfin'><h4>Surfa</h4>Använder GPS för att hitta loppisar i närheten av där du är som är öppna idag</div><div class='menu_button' id='weeks'><h4>Veckans annonser</h4>Loppisar med aktuella erbjudanden eller annat intressant den här veckan</div><div class='menu_button' id='omrade'><h4>Område</h4>Hitta loppisar i ett visst område</div><div class='menu_button' id='latest'><h4>Senaste</h4>De senast tillagda loppisarna här på loppisportalen</div><div class='menu_button' id='exit'><h4>Stäng</h4>Stänger appen och gör något annat spännande</div></div>");
+			$("#listbox").show();
+			fetch_info = "<h4>Hämtar Startsidan</h4>Hämtar förstasidan.";
 		break;		
+		
 		case "exit":
 			fetch = false;
 			navigator.app.exitApp();
@@ -253,7 +264,6 @@ function getList(type, value) {
 		navigator.geolocation.clearWatch(watchID);
 	}*/
 	
-	$("#firstpanel").panel("close");
 	$("#marketcontainer").hide();
 
 	if (fetch) {
@@ -280,6 +290,9 @@ function getList(type, value) {
 				$("#listbox").html("Det gick inte hämta information");
 			}
 		});
+	}else{
+		$("#firstpanel").panel("close");
+		$(".thinking_spinner").slideUp();
 	}
 }
 

@@ -174,7 +174,7 @@ td {
 	/* W3C */
 	text-transform: uppercase;
 	text-align: center;
-	font-size:12px;
+	font-size: 12px;
 	padding: 20px;
 	margin: 5px 20px 0px 20px;
 	border-radius: 20px;
@@ -182,7 +182,7 @@ td {
 	border: 0px;
 }
 
-.splash_buttons .menu_button h4{
+.splash_buttons .menu_button h4 {
 	color: #FF9B9B
 }
 
@@ -211,11 +211,22 @@ td {
 	padding: 10px;
 }
 
-.marketcontainer{
+.round_box {
+	background: white;
+	padding: 10px;
+	margin: 3px;
+	border: 1px solid black;
+	border-radius: 4px;
+}
+
+#marketcontainer {
 	display: block;
 	margin-bottom: 2em;
 	padding-bottom: 2em;
 	border-bottom: 3px solid #000;
+	background: #FFF;
+	padding: 0.5em;
+	border-radius: 5px
 }
 
 .marketlist {
