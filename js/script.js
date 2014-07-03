@@ -265,6 +265,7 @@ function getList(type, value) {
 	}*/
 	
 	$("#marketcontainer").hide();
+	$(".thinking_spinner").slideUp();
 
 	if (fetch) {
 		$.ajax({
@@ -278,7 +279,6 @@ function getList(type, value) {
 				if (response.result == "ok") {
 					$("#listbox").html(response.html);
 					$("#firstpanel").panel("close");
-					$(".thinking_spinner").slideUp();
 					$("#listbox").show();
 				} else {
 					alert(response.msg);
@@ -292,7 +292,6 @@ function getList(type, value) {
 		});
 	}else{
 		$("#firstpanel").panel("close");
-		$(".thinking_spinner").slideUp();
 	}
 }
 
