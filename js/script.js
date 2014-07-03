@@ -239,7 +239,7 @@ function getList(type, value) {
 			}
 			fetch_info = "<h4>Hämtar info för loppis-surfande</h4>Information hämtas om loppisar i din närhet som har öppet just nu.";
 		break;	
-		case "menu_firstpage":
+		case "firstpage":
 			fetch = false;
 			onlyopen = true;
 			$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='surfin'><h4>Surfa</h4>Använder GPS för att hitta loppisar i närheten av där du är som är öppna idag</div><div class='menu_button' id='weeks'><h4>Veckans annonser</h4>Loppisar med aktuella erbjudanden eller annat intressant den här veckan</div><div class='menu_button' id='omrade'><h4>Område</h4>Hitta loppisar i ett visst område</div><div class='menu_button' id='latest'><h4>Senaste</h4>De senast tillagda loppisarna här på loppisportalen</div><div class='menu_button' id='exit'><h4>Stäng</h4>Stänger appen och gör något annat spännande</div></div>");
@@ -265,7 +265,6 @@ function getList(type, value) {
 	}*/
 	
 	$("#marketcontainer").hide();
-	$(".thinking_spinner").slideUp();
 	$("#firstpanel").panel("close");
 
 	if (fetch) {
@@ -278,6 +277,7 @@ function getList(type, value) {
 				console.log(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
+					$(".thinking_spinner").slideUp();
 					$("#listbox").html(response.html);
 					$("#firstpanel").panel("close");
 					$("#listbox").show();
@@ -288,9 +288,14 @@ function getList(type, value) {
 			error : function(data, status, e) {
 				/*for (i in data)
 					alert(data[i]);*/
+				$(".thinking_spinner").slideUp();
 				$("#listbox").html("Det gick inte hämta information");
 			}
 		});
+	}
+	else{
+		$("#firstpanel").panel("close");
+		$(".thinking_spinner").slideUp();
 	}
 }
 
