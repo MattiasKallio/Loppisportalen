@@ -120,7 +120,7 @@ function showPosition(position) {
 		cache : false,
 		success : function(data) {
 			//$("#listbox").html(data);
-			console.log(data);
+			//console.log(data);
 			var response = JSON.parse(data);
 			if (response.result == "ok") {
 				$("#marketcontainer").hide();
@@ -266,6 +266,7 @@ function getList(type, value) {
 	
 	$("#marketcontainer").hide();
 	$(".thinking_spinner").slideUp();
+	$("#firstpanel").panel("close");
 
 	if (fetch) {
 		$.ajax({
@@ -290,8 +291,6 @@ function getList(type, value) {
 				$("#listbox").html("Det gick inte hämta information");
 			}
 		});
-	}else{
-		$("#firstpanel").panel("close");
 	}
 }
 
