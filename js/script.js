@@ -5,8 +5,8 @@ var wannago = false;
 var ad_platform_type = "";
 var maptype = "closest";
 var onlyopen = false;
-var ajurl = "http://loppisportalen.se/app/";
-//var ajurl = "http://localhost/loppisportalen/app/";
+//var ajurl = "http://loppisportalen.se/app/";
+var ajurl = "http://localhost/loppisportalen/app/";
 
 //var watchID = null;
 
