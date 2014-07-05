@@ -24,7 +24,7 @@
     <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="3.3.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="3.1.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="false" />           <!-- all: hides the status bar at the top of the screen -->
@@ -81,7 +81,7 @@
     <icon src="res/icon/ios/icon-72.png"            gap:platform="ios"        width="72" height="72" />
     <icon src="res/icon/ios/icon-57-2x.png"         gap:platform="ios"        width="114" height="114" />
     <icon src="res/icon/ios/icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
-    <icon src="res/icon/webos/icon-64.png"          gap:platform="webos" />
+    <!--  icon src="res/icon/webos/icon-64.png"          gap:platform="webos" /-->
     <!-- icon src="res/icon/windows-phone/icon-48.png"  gap:platform="winphone" /-->
     <!-- icon src="res/icon/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" /-->
 
