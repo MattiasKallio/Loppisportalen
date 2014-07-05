@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "se.loppisportalen.loppisportalen"
-        version   = "1.1.1">
-
+        version   = "1.1">
+<!-- Lägg till en 1:a efter loppisportalen för android och en .1 också. -->
     <name>Loppisportalen</name>
 
     <description>
@@ -41,7 +41,7 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-   	
+   	<!-- 
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -58,7 +58,7 @@
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.network-information" />
       <gap:plugin name="org.apache.cordova.vibration" />
-    
+     -->
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
   

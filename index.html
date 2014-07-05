@@ -1,11 +1,102 @@
 <!DOCTYPE html>
-<html class="ui-mobile-rendering">
-	<head>
-		<title></title>
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-		<script>
-			window.location='./main.html';
-		</script>
-	<body>		
-	</body>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="format-detection" content="telephone=yes" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<title>Loppisportalen</title>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyC5lZ-nuEUYGJOHfd9vRbqWYFQr1iQqZ_k&sensor=false"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<input type="hidden" id="cliplist_bottom_from" value=0 />
+	<input type="hidden" id="cliplist_bottom_category" value="All" />
+	<div data-role="page" id="home">
+
+		<div data-role="panel" id="firstpanel" data-display="push">
+			<!-- form id="searchform" action="" method="post">
+				<input type="text" id="search" placeholder="Sök" style="width:80%;" />
+				<input type="submit" value="Sök" style="width:20%" />
+			</form-->
+			<h2>Hitta</h2>
+			<div class="menu_button" id="firstpage">Start</div>
+			<div class="menu_button" id="closest">I närheten</div>
+			<div class="menu_button" id="surfin">Surfa</div>
+			<div class="menu_button" id="weeks">Veckans annonser</div>
+			<div class="menu_button" id="omrade">Område</div>
+			<!-- div class="menu_button" id="keywords">Nyckelord</div> -->
+			<div class="menu_button" id="latest">Senaste</div>
+			<h2>Typer</h2>
+			<div class="menu_button" id="typ_bakluckeloppis">Bakluckeloppis</div>
+			<div class="menu_button" id="typ_bostad">Bostad</div>
+			<div class="menu_button" id="typ_fast">Fast plats</div>
+			<div class="menu_button" id="typ_garage">Garage</div>
+			<div class="menu_button" id="typ_online">Online</div>
+			<div class="menu_button" id="typ_pakethallarloppis">Pakethållarloppis</div>
+			<div class="menu_button" id="typ_tillfallig">Tillfällig</div>
+			<div class="menu_button" id="typ_julmarknad">Julmarknad</div>
+			<h2>Annat</h2>
+			<div class="menu_button" id="exit">Stäng appen</div>
+		</div>
+
+		<div class="header" data-role="header" data-position="fixed">
+			<a href="#firstpanel"><img src="img/menu.png" />
+			</a> <img src="img/logo.png" alt="Loppisportalen logo" />
+		</div>
+
+		<div data-role="content">
+			<div id="marketcontainer"></div>
+			<div class="thinking_spinner">
+				<div id="thinking_text"><h4>Söker efter GPS-signal</h4></div>
+				<img src="img/thinking.gif" />
+			</div>
+			<div id="listbox">
+				Det finns fler sätt att hitta loppisar på om du klickar på menyknappen längst upp till vänster.
+				<div class="splash_buttons">
+					<div class="menu_button" id="surfin"><h4>Surfa</h4>Använder GPS för att hitta loppisar i närheten av där du är som är öppna idag</div>
+					<div class="menu_button" id="weeks"><h4>Veckans annonser</h4>Loppisar med aktuella erbjudanden eller annat intressant den här veckan</div>
+					<div class="menu_button" id="omrade"><h4>Område</h4>Hitta loppisar i ett visst område</div>
+					<!-- div class="menu_button" id="keywords">Nyckelord</div> -->
+					<div class="menu_button" id="latest"><h4>Senaste</h4>De senast tillagda loppisarna här på loppisportalen</div>
+					<div class="menu_button" id="exit"><h4>Stäng</h4>Stänger appen och gör något annat spännande</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="footer" data-role="footer" data-position="fixed">
+			<div id="admob_ad2" class="admob">
+				  <script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=164023920"></script>
+			</div>
+		</div>
+
+	</div>
+</body>
 </html>
