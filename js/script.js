@@ -267,6 +267,8 @@ function getList(type, value) {
 	$("#marketcontainer").hide();
 	$("#firstpanel").panel("close");
 
+	alert("testar");
+
 	if (fetch) {
 		$.ajax({
 			type : "POST",
@@ -274,6 +276,7 @@ function getList(type, value) {
 			data : dataarr,
 			cache : false,
 			success : function(data) {
+				alert(data);
 				console.log(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
