@@ -288,8 +288,7 @@ function getList(type, value) {
 			},
 			error : function(xhr, status, error) {
 				alert(ajurl + "getcontent.php");
-				var err = eval("(" + xhr.responseText + ")");
-  				alert(err.Message);
+  				alert(xhr.responseText);
 				/*for (i in data)
 					alert(data[i]);*/
 				$(".thinking_spinner").slideUp();
