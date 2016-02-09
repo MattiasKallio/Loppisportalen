@@ -29,7 +29,7 @@ var app = {
 	onDeviceReady : function() {
 		document.addEventListener("backbutton", backbuttonHandler, false);
 		document.addEventListener("menubutton", menubuttonHandler, false);
-		app.receivedEvent('deviceready');	
+		app.receivedEvent('deviceready');
 	},
 	// Update DOM on a Received Event
 	receivedEvent : function(id) {
@@ -38,13 +38,13 @@ var app = {
 		// alert("Device platform: "+device.platform);
 		ad_platform_type = device.platform != "undefined" ? device.platform : ad_platform_type;
 	}
-	
-	
+
+
 };
 
 $(function() {
-	$(document).ready(function() {		
-		
+	$(document).ready(function() {
+
 		$("#firstpanel, #listbox").on("click", ".menu_button", function() {
 			var ths = $(this).attr("id").split("_");
 			/*if(watchID == null)
@@ -54,9 +54,9 @@ $(function() {
 			} else {
 				getList(ths[0], ths[1]);
 			}
-			
+
 		});
-		
+
 		$( "#firstpanel" ).on( "panelbeforeopen", function() {
 			$("html, body").animate({
 				scrollTop : 0
@@ -84,11 +84,11 @@ $(function() {
 				break;
 			}
 		});
-		
+
 		app.initialize();
-		
+
 	});
-	
+
 });
 
 function showPosition(position) {
@@ -103,7 +103,7 @@ function showPosition(position) {
 	          'Speed: '             + position.coords.speed             + '\n' +
 	          'Timestamp: '         + new Date(position.timestamp)      + '\n');
 	 */
-	
+
 	var data_send = {
 			"action" : "get_info",
 			"maptype" : maptype,
@@ -137,7 +137,7 @@ function showPosition(position) {
 			/*for (i in data)
 				alert(data[i]);*/
 			$("#listbox").html("Det gick inte hämta geolocation information");
-			
+
 		}
 	});
 }
@@ -238,21 +238,21 @@ function getList(type, value) {
 				$("#listbox").hide();
 			}
 			fetch_info = "<h4>Hämtar info för loppis-surfande</h4>Information hämtas om loppisar i din närhet som har öppet just nu.";
-		break;	
+		break;
 		case "firstpage":
 			fetch = false;
 			onlyopen = true;
 			$("#listbox").html("<div class='splash_buttons'><div class='menu_button' id='surfin'><h4>Surfa</h4>Använder GPS för att hitta loppisar i närheten av där du är som är öppna idag</div><div class='menu_button' id='weeks'><h4>Veckans annonser</h4>Loppisar med aktuella erbjudanden eller annat intressant den här veckan</div><div class='menu_button' id='omrade'><h4>Område</h4>Hitta loppisar i ett visst område</div><div class='menu_button' id='latest'><h4>Senaste</h4>De senast tillagda loppisarna här på loppisportalen</div><div class='menu_button' id='exit'><h4>Stäng</h4>Stänger appen och gör något annat spännande</div></div>");
 			$("#listbox").show();
 			fetch_info = "<h4>Hämtar Startsidan</h4>Hämtar förstasidan.";
-		break;		
-		
+		break;
+
 		case "exit":
 			fetch = false;
 			navigator.app.exitApp();
 		break;
 	}
-	
+
 	$(".thinking_spinner").slideDown();
 	$("#thinking_text").html(fetch_info);
 
@@ -263,7 +263,7 @@ function getList(type, value) {
 		if(watchID == null)
 		navigator.geolocation.clearWatch(watchID);
 	}*/
-	
+
 	$("#marketcontainer").hide();
 	$("#firstpanel").panel("close");
 
