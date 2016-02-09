@@ -267,8 +267,6 @@ function getList(type, value) {
 	$("#marketcontainer").hide();
 	$("#firstpanel").panel("close");
 
-	alert("testar");
-
 	if (fetch) {
 		$.ajax({
 			type : "POST",
@@ -297,6 +295,7 @@ function getList(type, value) {
 		});
 	}
 	else{
+		alert("no fetch" + type);
 		$("#firstpanel").panel("close");
 		$(".thinking_spinner").slideUp();
 	}
