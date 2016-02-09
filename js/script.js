@@ -275,7 +275,6 @@ function getList(type, value) {
 			cache : false,
 			success : function(data) {
 				console.log(data);
-				alert(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$(".thinking_spinner").slideUp();
