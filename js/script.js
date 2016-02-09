@@ -274,6 +274,7 @@ function getList(type, value) {
 			data : dataarr,
 			cache : false,
 			success : function(data) {
+				//alert(data);
 				console.log(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
@@ -285,9 +286,12 @@ function getList(type, value) {
 					alert(response.msg);
 				}
 			},
-			error : function(data, status, e) {
-				for (i in data)
-					alert(data[i]);
+			error : function(xhr, status, error) {
+				alert(ajurl + "getcontent.php" + e.textMessage);
+				var err = eval("(" + xhr.responseText + ")");
+  				alert(err.Message);
+				/*for (i in data)
+					alert(data[i]);*/
 				$(".thinking_spinner").slideUp();
 				$("#listbox").html("Det gick inte hämta information");
 			}
