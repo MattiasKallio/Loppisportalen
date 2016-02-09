@@ -289,6 +289,7 @@ function getList(type, value) {
 			error : function(data, status, e) {
 				/*for (i in data)
 					alert(data[i]);*/
+					alert("det blev fel när informationen skulle hämtas.")
 				$(".thinking_spinner").slideUp();
 				$("#listbox").html("Det gick inte hämta information");
 			}
