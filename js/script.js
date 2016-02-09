@@ -287,7 +287,7 @@ function getList(type, value) {
 				}
 			},
 			error : function(xhr, status, error) {
-				alert(ajurl + "getcontent.php" + e.textMessage);
+				alert(ajurl + "getcontent.php");
 				var err = eval("(" + xhr.responseText + ")");
   				alert(err.Message);
 				/*for (i in data)
