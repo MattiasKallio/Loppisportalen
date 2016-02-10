@@ -16,8 +16,6 @@
         Mattias Kallio
     </author>
 
-    <access origin="*" />
-
     <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
@@ -64,6 +62,7 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 
 
     <!-- Third party plugins -->
