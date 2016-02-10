@@ -275,7 +275,7 @@ function getList(type, value) {
 			cache : false,
 			success : function(data) {
 				//alert(data);
-				console.log(data);
+				//console.log(data);
 				var response = JSON.parse(data);
 				if (response.result == "ok") {
 					$(".thinking_spinner").slideUp();
@@ -287,8 +287,8 @@ function getList(type, value) {
 				}
 			},
 			error : function(xhr, status, error) {
-				alert(ajurl + "getcontent.php");
-  				alert(xhr.responseText+ " " + status + " " + error);
+				//alert(ajurl + "getcontent.php");
+  				//alert(xhr.responseText+ " " + status + " " + error);
 				/*for (i in data)
 					alert(data[i]);*/
 				$(".thinking_spinner").slideUp();
@@ -297,7 +297,7 @@ function getList(type, value) {
 		});
 	}
 	else{
-		alert("no fetch" + type);
+		//alert("no fetch" + type);
 		$("#firstpanel").panel("close");
 		$(".thinking_spinner").slideUp();
 	}
