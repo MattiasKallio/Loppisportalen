@@ -43,9 +43,6 @@
     <!-- Plugins -->
 
 
-    <plugin spec="https://github.com/apache/cordova-plugin-inappbrowser" source="git" />
- 	<plugin spec="https://github.com/apache/cordova-plugin-splashscreen" source="git" />
- 	<plugin spec="https://github.com/apache/cordova-plugin-geolocation" source="git" />
 
     <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 
